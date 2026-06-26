@@ -85,7 +85,7 @@ Update this file after every meaningful implementation change.
 - **Blockchain Network**: Testnet only during development — mainnet deployment in a future release
 - **Storage**: IPFS for files and media, PostgreSQL for relational data, Redis for caching
 - **Frontend Deployment**: Vercel
-- **Backend Deployment**: Railway + Docker
+- **Backend Deployment**: Render + Docker
 
 ---
 

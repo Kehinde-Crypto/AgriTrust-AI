@@ -8,7 +8,7 @@
 | UI             | Tailwind CSS + shadcn/ui          | Styling and reusable component library    |
 | Auth           | Auth0                             | Secure authentication and session management |
 | Backend        | NestJS + TypeScript               | REST API, business logic, service modules |
-| Database       | PostgreSQL + Prisma               | Relational data storage and ORM           |
+| Database       | Supabase (PostgreSQL) + Prisma    | Relational data storage and ORM           |
 | Cache          | Redis                             | Session caching and performance           |
 | Blockchain     | Solidity + Hardhat + OpenZeppelin | Smart contracts — assets, tracking, certs (Testnet) |
 | Storage        | IPFS                              | Decentralized file/media storage          |
@@ -16,7 +16,7 @@
 | AI Engine      | Grok API (Custom Model)           | Voice assistant, translation, recommendations, fraud detection |
 | Payments       | cNGN / USD Stablecoin             | On-chain payment settlement               |
 | Monitoring     | Sentry                            | Error tracking and system health          |
-| Deployment     | Vercel (FE) + Railway (BE)        | Cloud hosting and CI/CD                   |
+| Deployment     | Vercel (FE) + Render (BE)         | Cloud hosting and CI/CD                   |
 
 ## System Boundaries
 
