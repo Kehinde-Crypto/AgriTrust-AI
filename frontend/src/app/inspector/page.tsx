@@ -2,247 +2,223 @@
 
 import { useState } from 'react';
 
-export default function VerifyBatchPage() {
-  const [isLoaded, setIsLoaded] = useState(false);
+export default function InspectorPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleLoadBatch = () => {
-    setIsLoaded(true);
-  };
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    // Simulate blockchain submission delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    // Simulate blockchain signing delay
+    await new Promise(resolve => setTimeout(resolve, 2000));
     setIsSubmitting(false);
-    alert('Inspection submitted to blockchain successfully!');
+    alert('Certificate signed and issued on-chain!');
   };
 
   return (
-    <div className="flex flex-col max-w-[1200px] w-full">
-      {/* Top Action Tabs */}
-      <div className="flex items-center gap-3 mb-8 overflow-x-auto pb-2 shrink-0">
-        <button className="flex items-center gap-2 px-4 py-2 rounded-lg border border-border-default text-text-primary hover:bg-bg-input transition-colors shrink-0 whitespace-nowrap">
-          <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
-          New Batch
-        </button>
-        <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-blue text-white shadow-lg shadow-brand-blue/20 shrink-0 whitespace-nowrap">
-          <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-          Verify Batch
-        </button>
-        <button className="flex items-center gap-2 px-4 py-2 rounded-lg border border-border-default text-text-primary hover:bg-bg-input transition-colors shrink-0 whitespace-nowrap">
-          <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>
-          Record Handoff
-        </button>
-      </div>
-
-      {/* Header */}
+    <div className="flex flex-col max-w-[1200px] w-full mx-auto">
+      
+      {/* Page Header */}
       <div className="mb-8">
-        <div className="flex items-center gap-2 text-brand-blue font-semibold text-sm mb-2 tracking-wider">
-          <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-          </svg>
-          BIOSAFETY INSPECTION
-        </div>
-        <h1 className="text-3xl font-bold text-text-primary mb-2">Verify & Inspect Batch</h1>
-        <p className="text-text-secondary">Record your inspection findings on-chain. This cannot be altered once submitted.</p>
+        <h1 className="text-3xl font-bold text-text-primary mb-2 tracking-tight">Issue Biosafety Certificate</h1>
+        <p className="text-text-secondary">Review inspection data and issue a blockchain-verifiable certificate.</p>
       </div>
 
-      {/* Batch Lookup */}
-      <div className="flex gap-4 mb-8">
-        <div className="relative flex-1 max-w-2xl">
-          <input 
-            type="text" 
-            placeholder="Enter Batch ID or scan QR code" 
-            defaultValue="AGT-0042"
-            className="w-full bg-bg-card border border-border-default rounded-xl py-4 pl-4 pr-12 text-text-primary focus:outline-none focus:border-brand-blue"
-          />
-          <button className="absolute right-4 top-4 text-text-muted hover:text-text-primary transition-colors">
-            <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm14 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
-            </svg>
-          </button>
-        </div>
-        <button 
-          onClick={handleLoadBatch}
-          className="bg-brand-blue hover:bg-brand-blue-dark text-white font-semibold py-4 px-8 rounded-xl transition-all shadow-lg shadow-brand-blue/20"
-        >
-          Load Batch
-        </button>
-      </div>
-
-      {isLoaded && (
-        <div className="flex flex-col lg:flex-row gap-6 items-start">
+      <div className="flex flex-col lg:flex-row gap-8 items-start">
+        
+        {/* Left Side: Form */}
+        <div className="flex-1 w-full bg-bg-card border border-border-subtle rounded-2xl p-6 lg:p-8">
           
-          {/* Main Content Area */}
-          <div className="flex-1 w-full bg-bg-card border border-border-subtle rounded-2xl p-6">
-            
-            {/* Batch Info Card */}
-            <div className="flex flex-wrap items-center justify-between gap-6 pb-6 border-b border-border-subtle mb-6">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-full bg-[#166534] border border-[#22c55e] flex items-center justify-center shrink-0 text-[#22c55e]">
-                   <svg viewBox="0 0 24 24" className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="1.5">
-                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                   </svg>
-                </div>
-                <div>
-                  <h2 className="text-xl font-bold text-text-primary">AGT-0042</h2>
-                  <p className="text-text-secondary">Grade A Cocoa 500kg</p>
-                </div>
-              </div>
-              
-              <div className="flex flex-wrap gap-8">
-                <div>
-                  <p className="text-text-muted text-sm mb-1">Farm</p>
-                  <p className="text-text-primary text-sm font-medium">Okafor Family Farm,<br/>Rivers State</p>
-                </div>
-                <div>
-                  <p className="text-text-muted text-sm mb-1">Registered</p>
-                  <p className="text-text-primary text-sm font-medium">June 14, 2026</p>
-                </div>
-                <div>
-                  <p className="text-text-muted text-sm mb-1">Status</p>
-                  <span className="inline-block px-3 py-1 rounded border border-accent-amber text-accent-amber text-xs font-bold bg-accent-amber/10 tracking-wide">
-                    AWAITING INSPECTION
-                  </span>
-                </div>
-              </div>
+          {/* Batch ID Lookup */}
+          <div className="mb-8">
+            <label className="block text-sm font-medium text-text-secondary mb-2">Batch ID</label>
+            <div className="relative">
+              <input 
+                type="text" 
+                defaultValue="AGT-0042"
+                className="w-full bg-bg-input border border-border-default rounded-xl py-3 pl-4 pr-12 text-text-primary focus:outline-none focus:border-brand-blue font-mono text-lg"
+              />
+              <button className="absolute right-3 top-3 text-text-muted hover:text-text-primary transition-colors">
+                <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            {/* Row 1 */}
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-2">Certificate type</label>
+              <select className="w-full bg-bg-input border border-border-default rounded-lg py-3 px-4 text-text-primary appearance-none focus:border-brand-blue outline-none cursor-pointer bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:12px_auto] bg-no-repeat bg-[position:right_1rem_center]">
+                <option>Export Quality</option>
+                <option>Local Distribution</option>
+                <option>Processing Only</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-2">Issuing authority</label>
+              <select className="w-full bg-bg-input border border-border-default rounded-lg py-3 px-4 text-text-primary appearance-none focus:border-brand-blue outline-none cursor-pointer bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:12px_auto] bg-no-repeat bg-[position:right_1rem_center]">
+                <option>NAFDAC - National Agency...</option>
+                <option>Ministry of Agriculture</option>
+              </select>
             </div>
 
-            {/* Inspection Form */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              {/* Row 1 */}
-              <div>
-                <label className="block text-sm font-medium text-text-secondary mb-2">Physical weight (kg)</label>
-                <input type="text" defaultValue="498.5" className="w-full bg-bg-input border border-border-default rounded-lg py-3 px-4 text-text-primary focus:border-brand-blue outline-none transition-colors" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-text-secondary mb-2">Quality assessment</label>
-                <select className="w-full bg-bg-input border border-border-default rounded-lg py-3 px-4 text-text-primary appearance-none focus:border-brand-blue outline-none transition-colors cursor-pointer bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:12px_auto] bg-no-repeat bg-[position:right_1rem_center]">
-                  <option>Grade A - Premium</option>
-                  <option>Grade B - Standard</option>
-                  <option>Grade C - Reject</option>
-                </select>
-              </div>
-
-              {/* Row 2 */}
-              <div>
-                <label className="block text-sm font-medium text-text-secondary mb-2">Storage condition</label>
-                <select className="w-full bg-bg-input border border-border-default rounded-lg py-3 px-4 text-text-primary appearance-none focus:border-brand-blue outline-none transition-colors cursor-pointer bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:12px_auto] bg-no-repeat bg-[position:right_1rem_center]">
-                  <option>Optimal</option>
-                  <option>Sub-optimal</option>
-                  <option>Poor</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-text-secondary mb-2">GMO test result</label>
-                <div className="flex gap-4">
-                  <label className="flex-1 flex items-center justify-center gap-2 border border-brand-green bg-brand-green/10 text-brand-green rounded-lg py-3 px-4 cursor-pointer">
-                    <input type="radio" name="gmo" defaultChecked className="hidden" />
-                    <div className="w-4 h-4 rounded-full border-2 border-brand-green flex items-center justify-center">
-                      <div className="w-2 h-2 rounded-full bg-brand-green"></div>
-                    </div>
-                    NON-GMO CONFIRMED
-                  </label>
-                  <label className="flex-1 flex items-center justify-center gap-2 border border-border-default bg-bg-input text-text-secondary hover:text-text-primary rounded-lg py-3 px-4 cursor-pointer">
-                    <input type="radio" name="gmo" className="hidden" />
-                    <div className="w-4 h-4 rounded-full border-2 border-text-muted flex items-center justify-center"></div>
-                    GMO PRESENT
-                  </label>
-                </div>
-              </div>
-
-              {/* Row 3 */}
-              <div>
-                <label className="block text-sm font-medium text-text-secondary mb-2">Biosafety grade</label>
-                <select className="w-full bg-bg-input border border-border-default rounded-lg py-3 px-4 text-text-primary appearance-none focus:border-brand-blue outline-none transition-colors cursor-pointer bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:12px_auto] bg-no-repeat bg-[position:right_1rem_center]">
-                  <option>A+</option>
-                  <option>A</option>
-                  <option>B</option>
-                  <option>C</option>
-                </select>
-              </div>
-              <div className="flex flex-col justify-end">
-                <label className="flex items-center gap-3 cursor-pointer py-3 h-12">
-                  <div className="relative flex items-center justify-center w-5 h-5 bg-brand-green rounded text-bg-primary">
-                    <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+            {/* Row 2 */}
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-text-secondary mb-2">GMO declaration</label>
+              <div className="flex gap-4">
+                <label className="flex-1 flex items-center justify-center gap-2 border border-brand-green bg-brand-green/10 text-brand-green rounded-lg py-3 px-4 cursor-pointer font-medium tracking-wide text-sm">
+                  <input type="radio" name="gmo" defaultChecked className="hidden" />
+                  <div className="w-4 h-4 rounded-full border-2 border-brand-green flex items-center justify-center">
+                    <div className="w-2 h-2 rounded-full bg-brand-green"></div>
                   </div>
-                  <span className="text-text-primary">Meets NAFDAC standards</span>
+                  NON-GMO
+                </label>
+                <label className="flex-1 flex items-center justify-center gap-2 border border-border-default bg-bg-input text-text-secondary hover:text-text-primary rounded-lg py-3 px-4 cursor-pointer font-medium tracking-wide text-sm">
+                  <input type="radio" name="gmo" className="hidden" />
+                  <div className="w-4 h-4 rounded-full border-2 border-text-muted flex items-center justify-center"></div>
+                  GMO PRESENT
                 </label>
               </div>
             </div>
 
-            {/* Notes & Inspector ID */}
-            <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 mb-8">
-              <div>
-                <label className="block text-sm font-medium text-text-secondary mb-2">Inspector notes</label>
-                <textarea 
-                  rows={2} 
-                  placeholder="Add any observations, test method reference, or additional comments..."
-                  className="w-full bg-bg-input border border-border-default rounded-lg py-3 px-4 text-text-primary focus:border-brand-blue outline-none transition-colors resize-none"
-                ></textarea>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-text-secondary mb-2">Inspector ID</label>
-                <input type="text" defaultValue="NAFDAC-0042" readOnly className="w-full bg-bg-input border border-border-default rounded-lg py-3 px-4 text-text-primary focus:outline-none opacity-80 cursor-not-allowed" />
-              </div>
+            {/* Row 3 */}
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-text-secondary mb-2">Biosafety grade</label>
+              <select className="w-full bg-bg-input border border-border-default rounded-lg py-3 px-4 text-brand-green font-medium appearance-none focus:border-brand-blue outline-none cursor-pointer bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2322c55e%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E')] bg-[length:12px_auto] bg-no-repeat bg-[position:right_1rem_center]">
+                <option>Grade A - Premium</option>
+                <option>Grade B - Standard</option>
+                <option>Grade C - Reject</option>
+              </select>
             </div>
 
-            {/* Submit Button */}
-            <button 
-              onClick={handleSubmit}
-              disabled={isSubmitting}
-              className="w-full py-4 bg-brand-blue hover:bg-brand-blue-dark text-white font-bold text-lg rounded-xl flex justify-center items-center gap-3 transition-all shadow-lg shadow-brand-blue/20"
-            >
-              {isSubmitting ? (
-                <>
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  Submitting to blockchain...
-                </>
-              ) : (
-                <>
-                  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
-                  Submit Inspection to Blockchain
-                </>
-              )}
-            </button>
-            <p className="text-center text-accent-amber text-sm font-medium mt-4 flex justify-center items-center gap-2">
-              <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-              This action is permanent and cannot be reversed.
-            </p>
+            {/* Row 4 */}
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-2">Valid from</label>
+              <input 
+                type="date" 
+                defaultValue="2026-06-16"
+                className="w-full bg-bg-input border border-border-default rounded-lg py-3 px-4 text-text-primary focus:outline-none focus:border-brand-blue" 
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-2">Valid until</label>
+              <input 
+                type="date" 
+                defaultValue="2026-12-16"
+                className="w-full bg-bg-input border border-border-default rounded-lg py-3 px-4 text-text-primary focus:outline-none focus:border-brand-blue" 
+              />
+            </div>
           </div>
 
-          {/* Info Panel Right side */}
-          <div className="w-full lg:w-80 bg-bg-sidebar border border-border-subtle rounded-2xl p-6 shrink-0">
-            <h3 className="text-lg font-bold text-text-primary mb-6">What happens next</h3>
+          {/* Certify Checkbox */}
+          <div className="mb-8">
+            <label className="flex items-start gap-3 cursor-pointer">
+              <div className="relative flex items-center justify-center w-5 h-5 mt-0.5 bg-brand-blue rounded text-white shrink-0">
+                <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+              </div>
+              <span className="text-text-secondary text-sm leading-relaxed">
+                I certify that this batch meets all regulatory biosafety standards and the information provided is true and accurate.
+              </span>
+            </label>
+          </div>
+
+          {/* Submit Button */}
+          <button 
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+            className="w-full py-4 bg-brand-blue hover:bg-brand-blue-dark text-white font-bold text-lg rounded-xl flex justify-center items-center gap-3 transition-all shadow-[0_0_20px_rgba(37,99,235,0.2)]"
+          >
+            {isSubmitting ? (
+              <>
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                Signing to blockchain...
+              </>
+            ) : (
+              <>
+                <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                Sign & Issue Certificate
+              </>
+            )}
+          </button>
+        </div>
+
+        {/* Right Side: Certificate Preview */}
+        <div className="w-full lg:w-[420px] shrink-0">
+          <h2 className="text-lg font-bold text-text-primary mb-6">Certificate preview</h2>
+          
+          <div className="bg-[#1a1f2e] border border-brand-blue/30 rounded-2xl p-6 relative overflow-hidden shadow-2xl">
+            {/* Background pattern styling (subtle circles) */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-blue/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
             
-            <div className="space-y-6 relative before:absolute before:inset-0 before:ml-[15px] before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-border-subtle">
-              <div className="relative flex items-start gap-4">
-                <div className="w-8 h-8 rounded-full bg-brand-blue flex items-center justify-center text-white font-bold text-sm shrink-0 z-10 ring-4 ring-bg-sidebar">1</div>
-                <p className="text-sm text-text-secondary mt-1">Your inspection is recorded as an immutable blockchain transaction.</p>
+            {/* Certificate Header */}
+            <div className="text-center mb-8 relative z-10">
+              <div className="flex justify-center mb-3">
+                <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10">
+                  <path d="M20 4L8 10V20C8 28 13 35 20 38C27 35 32 28 32 20V10L20 4Z" stroke="#3b82f6" strokeWidth="2" fill="#3b82f6" opacity="0.15" />
+                  <path d="M14 20C14 20 17 16 20 16C23 16 26 20 26 20" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" fill="none" />
+                  <path d="M14 20C14 20 17 24 20 24C23 24 26 20 26 20" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" fill="none" />
+                </svg>
               </div>
-              <div className="relative flex items-start gap-4">
-                <div className="w-8 h-8 rounded-full bg-brand-blue flex items-center justify-center text-white font-bold text-sm shrink-0 z-10 ring-4 ring-bg-sidebar">2</div>
-                <p className="text-sm text-text-secondary mt-1">A biosafety certificate is generated and linked to this batch.</p>
+              <h3 className="text-white font-serif tracking-widest font-bold text-sm">AGRITRACE BIOSAFETY CERTIFICATE</h3>
+              <div className="w-16 h-0.5 bg-brand-blue/50 mx-auto mt-3"></div>
+            </div>
+
+            <div className="flex justify-between items-start mb-8 relative z-10">
+              {/* Badge/Seal */}
+              <div className="w-20 h-20 bg-[#166534] rounded-full border-4 border-[#14532d] shadow-[0_0_15px_rgba(22,101,52,0.5)] flex flex-col items-center justify-center text-white rotate-[-10deg]">
+                <svg viewBox="0 0 24 24" className="w-6 h-6 mb-0.5 text-white" fill="none" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                <span className="text-[9px] font-bold tracking-widest text-[#4ade80]">CERTIFIED</span>
               </div>
-              <div className="relative flex items-start gap-4">
-                <div className="w-8 h-8 rounded-full bg-brand-blue flex items-center justify-center text-white font-bold text-sm shrink-0 z-10 ring-4 ring-bg-sidebar">3</div>
-                <p className="text-sm text-text-secondary mt-1">The farmer is notified and the batch status updates to <span className="text-brand-green font-bold">CERTIFIED</span>.</p>
-              </div>
-              <div className="relative flex items-start gap-4">
-                <div className="w-8 h-8 rounded-full bg-brand-blue flex items-center justify-center text-white font-bold text-sm shrink-0 z-10 ring-4 ring-bg-sidebar">4</div>
-                <p className="text-sm text-text-secondary mt-1">A QR code is activated for consumer verification.</p>
+
+              {/* QR Code Placeholder */}
+              <div className="w-20 h-20 bg-white p-1 rounded-sm border border-border-default/50">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" className="w-full h-full fill-black opacity-90">
+                  <path d="M10,10 h25 v25 h-25 z M15,15 h15 v15 h-15 z M10,65 h25 v25 h-25 z M15,70 h15 v15 h-15 z M65,10 h25 v25 h-25 z M70,15 h15 v15 h-15 z M45,45 h10 v10 h-10 z M30,10 h15 v10 h-15 z M30,30 h10 v15 h-10 z M65,45 h25 v10 h-25 z M45,65 h15 v25 h-15 z M65,65 h10 v10 h-10 z M80,65 h10 v10 h-10 z M65,80 h25 v10 h-25 z" />
+                </svg>
               </div>
             </div>
 
-            <div className="mt-8 flex justify-center">
-              <svg viewBox="0 0 24 24" className="w-20 h-20 text-brand-blue/30 drop-shadow-[0_0_15px_rgba(37,99,235,0.2)]" fill="none" stroke="currentColor" strokeWidth="1">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
+            {/* Certificate Details */}
+            <div className="space-y-4 relative z-10 border-t border-border-subtle/30 pt-6">
+              <div className="flex justify-between items-end border-b border-border-subtle/20 pb-2">
+                <span className="text-xs text-text-muted font-medium uppercase tracking-wider">Certificate ID</span>
+                <span className="text-sm font-mono text-white font-bold">BCT-8942-0042</span>
+              </div>
+              <div className="flex justify-between items-end border-b border-border-subtle/20 pb-2">
+                <span className="text-xs text-text-muted font-medium uppercase tracking-wider">Batch Ref</span>
+                <span className="text-sm font-mono text-brand-blue font-bold">AGT-0042</span>
+              </div>
+              <div className="flex justify-between items-end border-b border-border-subtle/20 pb-2">
+                <span className="text-xs text-text-muted font-medium uppercase tracking-wider">Issue Date</span>
+                <span className="text-sm font-bold text-white">16 Jun 2026</span>
+              </div>
+              <div className="flex justify-between items-end border-b border-border-subtle/20 pb-2">
+                <span className="text-xs text-text-muted font-medium uppercase tracking-wider">Expiry Date</span>
+                <span className="text-sm font-bold text-white">16 Dec 2026</span>
+              </div>
+              <div className="flex justify-between items-end border-b border-border-subtle/20 pb-2">
+                <span className="text-xs text-text-muted font-medium uppercase tracking-wider">Grade</span>
+                <span className="text-sm font-bold text-brand-green">Grade A - Premium</span>
+              </div>
+              <div className="flex justify-between items-end border-b border-border-subtle/20 pb-2">
+                <span className="text-xs text-text-muted font-medium uppercase tracking-wider">GMO Status</span>
+                <span className="text-sm font-bold text-white">Non-GMO</span>
+              </div>
+              <div className="flex justify-between items-end border-b border-border-subtle/20 pb-2">
+                <span className="text-xs text-text-muted font-medium uppercase tracking-wider">Inspector</span>
+                <span className="text-sm font-bold text-white">NAFDAC-0042</span>
+              </div>
             </div>
+
+            {/* Footer */}
+            <div className="mt-8 text-center border-t border-border-subtle/30 pt-4">
+              <p className="text-[10px] text-text-muted uppercase tracking-widest">Powered by AgriTrace Blockchain</p>
+            </div>
+            
           </div>
         </div>
-      )}
+        
+      </div>
     </div>
   );
 }

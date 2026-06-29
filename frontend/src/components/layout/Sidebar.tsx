@@ -43,16 +43,26 @@ export default function Sidebar() {
 
       {/* User Profile */}
       <div className="p-4 mx-4 mt-6 mb-4 flex items-center gap-3 rounded-xl border border-border-subtle bg-bg-primary">
-        <div className="w-10 h-10 rounded-full bg-brand-blue flex items-center justify-center text-white font-bold shrink-0">
+        <div className={`w-10 h-10 rounded-full ${
+          pathname.startsWith('/farmer') ? 'bg-brand-green' : 
+          pathname.startsWith('/regulator') ? 'bg-[#9333ea]' : 
+          'bg-brand-blue'
+        } flex items-center justify-center text-white font-bold shrink-0`}>
           {initials}
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-semibold text-text-primary truncate">
             {user?.name || user?.email || 'Loading...'}
           </p>
-          <p className="text-xs font-semibold text-brand-blue uppercase tracking-wider">
-            INSPECTOR
-          </p>
+          <div className="flex items-center gap-2 mt-1">
+            <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
+              pathname.startsWith('/farmer') ? 'bg-brand-green/20 text-brand-green' : 
+              pathname.startsWith('/regulator') ? 'bg-[#9333ea]/20 text-[#c084fc]' : 
+              'bg-brand-blue/20 text-brand-blue'
+            }`}>
+              {pathname.startsWith('/farmer') ? 'FARMER' : pathname.startsWith('/regulator') ? 'REGULATOR' : 'INSPECTOR'}
+            </span>
+          </div>
         </div>
         <svg viewBox="0 0 24 24" className="w-4 h-4 text-text-muted" fill="none" stroke="currentColor" strokeWidth="2">
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -63,6 +73,12 @@ export default function Sidebar() {
       <nav className="flex-1 px-4 space-y-1 mb-8">
         {menuItems.map((item) => {
           const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+          
+          let activeClass = 'bg-sidebar-active text-white font-medium';
+          if (isActive && pathname.startsWith('/farmer')) activeClass = 'bg-brand-green/20 text-brand-green font-medium border-l-2 border-brand-green';
+          else if (isActive && pathname.startsWith('/regulator')) activeClass = 'bg-[#9333ea]/20 text-[#c084fc] font-medium border-l-2 border-[#c084fc]';
+          else if (isActive) activeClass = 'bg-brand-blue/20 text-brand-blue font-medium border-l-2 border-brand-blue';
+
           return (
             <Link
               key={item.name}
@@ -70,7 +86,7 @@ export default function Sidebar() {
               className={`
                 flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors
                 ${isActive 
-                  ? 'bg-sidebar-active text-white font-medium' 
+                  ? activeClass 
                   : 'text-text-secondary hover:bg-bg-input hover:text-text-primary'
                 }
               `}
