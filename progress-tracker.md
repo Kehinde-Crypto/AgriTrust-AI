@@ -4,7 +4,7 @@ Update this file after every meaningful implementation change.
 
 ## Current Phase
 
-- 🔴 Not Started
+- 🟡 In Progress
 
 ## Current Goal
 
@@ -26,16 +26,16 @@ Update this file after every meaningful implementation change.
 
 ## In Progress
 
-- None yet.
+- Sprint 1: Foundation (Auth0, RBAC, User Management, Farm Registration)
 
 ---
 
 ## Next Up
 
 ### Sprint 1 — Foundation
-- [ ] Initialize Next.js frontend (TypeScript + Tailwind + shadcn/ui)
-- [ ] Initialize NestJS backend
-- [ ] Set up PostgreSQL database + Prisma schema
+- [x] Initialize Next.js frontend (TypeScript + Tailwind + shadcn/ui)
+- [x] Initialize NestJS backend
+- [x] Set up PostgreSQL database + Prisma schema
 - [ ] Integrate Auth0 authentication (register, login, JWT guard)
 - [ ] Implement Role-Based Access Control (ADMIN, FARMER, BUYER, TRANSPORTER, REGULATOR)
 - [ ] Build User Management module (backend)
